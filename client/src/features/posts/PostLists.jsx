@@ -10,7 +10,7 @@ const PostLists = () => {
   useEffect(() => {
     async function loadPosts() {
       try {
-        const response = await fetch(`${API_URL}/posts`);
+        const response = await fetch(API_URL);
         if (response.ok) {
           const json = await response.json();
           setPosts(json);

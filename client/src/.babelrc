@@ -1,5 +1,7 @@
 {
     "presets": ["@babel/preset-env", 
-    ["@babel/preset-react"]],
-    "plugins": [ ["babel-plugin-transform-import-meta", {"module": "ES6"}]]  
-}
+    ["@babel/preset-react", 
+    // Needed to remove the react import when running tests
+    { "runtime": "automatic" }]],
+    "plugins": [ ["babel-plugin-transform-import-meta", { "module": "ES6" }]]
+  }

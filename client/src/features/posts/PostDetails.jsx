@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react"
 import { useParams, Link, useNavigate } from "react-router-dom"
-import { API_URL } from "../../constants";
+import { deletePost, fetchPost } from "../../services/postService";
 
 const PostDetails = () => {
     const [post, setPost] = useState(null);
@@ -12,18 +12,14 @@ const PostDetails = () => {
     useEffect(() => {
         const fetchCurrentPost = async () => {
             try {
-                const response = await fetch(`${API_URL}/${id}`)
-                if (response.ok) {
-                    const json = await response.json()
-                    setPost(json)
-                    setLoading(false);
-                } else {
-                    throw response
-                }
+                const data = await fetchPost(id);
+                setPost(data);
             } catch (e) {
                 setError(e)
                 console.log(`Error fetching Post ${id}:`)
                 console.log("Error: ", e)
+            } finally {
+                setLoading(false)
             }
         }
         fetchCurrentPost();
@@ -31,17 +27,10 @@ const PostDetails = () => {
 
     if (loading) return <h2>Loading....</h2>
 
-    const deletePost = async (id) => {
+    const handleDelete = async (id) => {
         try {
-            const response = await fetch(`${API_URL}/${id}`, {
-                method: "DELETE",
-            });
-
-            if (response.ok) {
-                navigate("/");
-            } else {
-                throw response;
-            }
+            await deletePost(id);
+            navigate("/");
         } catch (e) {
             setError(e)
             console.log(`Error deleting post ${id}`)
@@ -55,7 +44,7 @@ const PostDetails = () => {
             <p>{post.body}</p>
             <Link to="/">Back to Posts</Link>
             {" | "}
-            <button onClick={() => deletePost(post.id)}>Delete</button>
+            <button onClick={() => handleDelete(post.id)}>Delete</button>
         </div>
     )
 }

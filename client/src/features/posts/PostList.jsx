@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { API_URL } from "../../constants";
 import { Link } from "react-router-dom";
+import { deletePost, fetchAllPosts } from "../../services/postService";
 
 const PostList = () => {
   const [posts, setPosts] = useState([]);
@@ -11,13 +11,8 @@ const PostList = () => {
   useEffect(() => {
     async function loadPosts() {
       try {
-        const response = await fetch(API_URL);
-        if (response.ok) {
-          const json = await response.json();
-          setPosts(json);
-        } else {
-          throw response;
-        }
+        const data = await fetchAllPosts();
+        setPosts(data);
       } catch (e) {
         setError("An error occurred while loading posts...");
         console.log("Error: ", e);
@@ -29,18 +24,10 @@ const PostList = () => {
     loadPosts();
   }, [])
 
-  const deletePost = async (id) => {
+  const handleDelete = async (id) => {
     try {
-      // DELETE request to: http://localhost:3000/api/v1/posts/:id
-      const response = await fetch(`${API_URL}/${id}`, {
-        method: "DELETE",
-      });
-
-      if (response.ok) {
-        setPosts(posts.filter((post) => post.id !== id));
-      } else {
-        throw response;
-      }
+      await deletePost(id);
+      setPosts(posts.filter((post) => post.id !== id));
     } catch (e) {
       setError(e)
       console.log(`Error deleting post: ${id}`)
@@ -56,7 +43,7 @@ const PostList = () => {
           <div>
             <Link to={`/posts/${post.id}/edit`}>Edit</Link>
             {" | "}
-            <button onClick={() => deletePost(post.id)}>Delete</button>
+            <button onClick={() => handleDelete(post.id)}>Delete</button>
           </div>
         </div>
       ))}

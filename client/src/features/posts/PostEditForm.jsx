@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom"
-import { API_URL } from "../../constants";
+import { fetchPost, updatePost } from "../../services/postService";
 
 const PostEditForm = () => {
     const { id } = useParams();
@@ -12,14 +12,8 @@ const PostEditForm = () => {
     useEffect(() => {
         const fetchCurrentPost = async () => {
             try {
-                const response = await fetch(`${API_URL}/${id}`)
-                
-                if (response.ok) {
-                    const json = await response.json();
-                    setPost(json);
-                } else {
-                    throw response;
-                }
+                const data = await fetchPost(id);
+                setPost(data);
             } catch (e) {
                 setError(e);
                 console.log(`Error fetching post ${id}.`);
@@ -35,26 +29,14 @@ const PostEditForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        const updatedPost = {
+            title: post.title,
+            body: post.body,
+        };
+
         try {
-            const response = await fetch(`${API_URL}/${id}`, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    title: post.title,
-                    body: post.body,
-                }),
-            });
-
-            if (response.ok) {
-                const json = await response.json();
-                console.log("Edit Success: ", json);
-                navigate(`/posts/${id}`);
-            } else {
-                throw response;
-            }
-
+            const response = await updatePost(id, updatedPost);
+            navigate(`/posts/${response.id}`);
         } catch (e) {
             setError(e);
             console.log(`Error editing post ${id}`);

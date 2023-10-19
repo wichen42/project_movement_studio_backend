@@ -16,8 +16,7 @@ const PostDetails = () => {
                 setPost(data);
             } catch (e) {
                 setError(e)
-                console.log(`Error fetching Post ${id}:`)
-                console.log("Error: ", e)
+                console.error("An error occurred while loading posts: ", e);
             } finally {
                 setLoading(false)
             }
@@ -25,7 +24,7 @@ const PostDetails = () => {
         fetchCurrentPost();
     }, [id]);
 
-    if (loading) return <h2>Loading....</h2>
+    if (!post) return <h2>Loading...</h2>;
 
     const handleDelete = async (id) => {
         try {
@@ -33,8 +32,7 @@ const PostDetails = () => {
             navigate("/");
         } catch (e) {
             setError(e)
-            console.log(`Error deleting post ${id}`)
-            console.log("Error: ", e)
+            console.error("An error occured while deleting post: ", e)
         }
     };
 

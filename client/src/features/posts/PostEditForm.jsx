@@ -7,7 +7,7 @@ const PostEditForm = () => {
     const navigate = useNavigate();
     const [post, setPost] = useState(null);
     const [, setError] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const [, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchCurrentPost = async () => {
@@ -16,8 +16,7 @@ const PostEditForm = () => {
                 setPost(data);
             } catch (e) {
                 setError(e);
-                console.log(`Error fetching post ${id}.`);
-                console.log("Error: ", e);
+                console.error("An error occured fetching post: ", e);
             } finally {
                 setLoading(false);
             }
@@ -35,16 +34,15 @@ const PostEditForm = () => {
         };
 
         try {
-            const response = await updatePost(id, updatedPost);
-            navigate(`/posts/${response.id}`);
+            await updatePost(id, updatedPost);
+            navigate(`/posts/${id}`);
         } catch (e) {
             setError(e);
-            console.log(`Error editing post ${id}`);
-            console.log("Error: ", e);
+            console.error("An error occured updating post: ", e);
         }
     };
 
-    if (loading) return <h2>Loading....</h2>
+    if (!post) return <h2>Loading...</h2>;
 
     return (
         <div>

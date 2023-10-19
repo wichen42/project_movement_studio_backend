@@ -4,7 +4,7 @@ async function fetchAllPosts() {
     const response = await fetch(`${API_URL}`);
 
     if (!response.ok) {
-        throw response;
+        throw new Error(response.statusText);
     }
 
     return response.json();
@@ -23,7 +23,7 @@ async function createPost(postData) {
     });
 
     if (!response.ok) {
-        throw response;
+        throw new Error(response.statusText);
     }
 
     return response.json();
@@ -33,7 +33,7 @@ async function fetchPost(id) {
     const response = await fetch(`${API_URL}/${id}`);
 
     if (!response.ok) {
-        throw response;
+        throw new Error(response.statusText);
     }
 
     return response.json();
@@ -52,7 +52,7 @@ async function updatePost(id, post) {
     })
 
     if (!response.ok) {
-        throw response;
+        throw new Error(response.statusText);
     }
 
     return response.json();
@@ -63,16 +63,12 @@ async function deletePost(id) {
         method: "DELETE",
     });
 
-    if (!response.ok) {
-        throw response;
-    }
-
     // 204 = no content
     if (response.status === 204) {
         return null;
     }
 
-    return response.json();
+    throw new Error(response.statusText);
 }
 
 

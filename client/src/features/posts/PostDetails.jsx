@@ -5,7 +5,7 @@ import { deletePost, fetchPost } from "../../services/postService";
 const PostDetails = () => {
     const [post, setPost] = useState(null);
     const [, setError] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const [, setLoading] = useState(true);
     const { id } = useParams();
     const navigate = useNavigate();
 

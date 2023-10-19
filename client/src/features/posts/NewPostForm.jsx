@@ -18,8 +18,7 @@ const NewPostForm = () => {
                 navigate(`/posts/${response.id}`)
         } catch (e) {
             setError(e)
-            console.log("Error creating Post")
-            console.log("Error: ", e)
+            console.error("An error occured while creating post: ", e);
         }
     }
 
@@ -38,7 +37,7 @@ const NewPostForm = () => {
                     /> 
                 </div>
                 <div>
-                    <label htmlFor="bodyInout">Body:</label>
+                    <label htmlFor="bodyInput">Body:</label>
                     <textarea 
                         id="bodyInput" 
                         value={body}

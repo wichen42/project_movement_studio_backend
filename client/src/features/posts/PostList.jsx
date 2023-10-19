@@ -14,8 +14,8 @@ const PostList = () => {
         const data = await fetchAllPosts();
         setPosts(data);
       } catch (e) {
-        setError("An error occurred while loading posts...");
-        console.log("Error: ", e);
+        setError(e);
+        console.error("An error occurred while loading posts: ", e);
       } finally {
         setLoading(false);
       }
@@ -30,8 +30,7 @@ const PostList = () => {
       setPosts(posts.filter((post) => post.id !== id));
     } catch (e) {
       setError(e)
-      console.log(`Error deleting post: ${id}`)
-      console.log("Error: ", e)
+      console.error("Error deleting post", e)
     }
   };
 

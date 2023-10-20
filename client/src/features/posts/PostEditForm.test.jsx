@@ -59,7 +59,7 @@ describe("PostEditForm component", () => {
 
         const postTitle = screen.getByLabelText(/title/i);
         const postBody = screen.getByLabelText(/body/i);
-        const submitButton = screen.getByText(/save/i);
+        const submitButton = screen.getByText(/Update Post/i);
 
         fireEvent.change(postTitle, {
             target: {value: newPost.title}
@@ -112,7 +112,7 @@ describe("PostEditForm component", () => {
         renderForm();
 
         await waitFor(() => {
-            fireEvent.click(screen.getByText(/save/i));
+            fireEvent.click(screen.getByText(/Update Post/i));
         });
 
         await waitFor(() => {

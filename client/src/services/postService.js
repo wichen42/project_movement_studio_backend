@@ -13,13 +13,7 @@ async function fetchAllPosts() {
 async function createPost(postData) {
     const response = await fetch(`${API_URL}`, {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            title: postData.title,
-            body: postData.body
-        })
+        body: postData
     });
 
     if (!response.ok) {

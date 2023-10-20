@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom'
 import PostForm from './PostForm'
-import { fireEvent, getByRole, render } from '@testing-library/react'
+import { fireEvent, render } from '@testing-library/react'
 import { act } from 'react-dom/test-utils';
 
 describe("PostForm component", () => {
@@ -87,7 +87,6 @@ describe("PostForm component", () => {
         expect(mockSubmit).toHaveBeenCalledWith({
             title: newTitle,
             body: newBody,
-            image: "",
         });
     });
 });

@@ -11,12 +11,12 @@ jest.mock("../../services/postService", () => ({
         return {
             id: 1,
             title: "Test Post",
-            body: "This is a test post."
+            body: "This is a test post.",
         };
     }),
 }));
 
-describe("NewPostForm compinent", () => {
+describe("NewPostForm component", () => {
     afterEach(() => {
         jest.clearAllMocks();
     });

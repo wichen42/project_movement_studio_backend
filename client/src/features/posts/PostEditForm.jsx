@@ -35,7 +35,7 @@ const PostEditForm = () => {
     return (
         <PostForm 
             post={post}
-            headerText="Edit a post"
+            headerText="Edit post"
             onSubmit={handleUpdateSubmit}
             buttonText="Update Post"
         />

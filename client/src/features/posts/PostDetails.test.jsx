@@ -9,6 +9,8 @@ jest.mock("../../services/postService", () => ({
     deletePost: jest.fn(),
 }));
 
+jest.mock("./PostImage.css", () => ({}));
+
 describe("PostDetails component", () => {
     const mockPost = {
         id: 1,

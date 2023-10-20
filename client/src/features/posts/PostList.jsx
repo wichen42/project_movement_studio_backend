@@ -39,6 +39,13 @@ const PostList = () => {
       {posts.map((post) => (
         <div key={post.id} className="post-container">
           <Link to={`/posts/${post.id}`}>{post.title}</Link>
+          <div className="post-image-container">
+            {post.image_url ? (
+              <img src={post.image_url} alt={post.title} className="post-image" />
+            ) : (
+              <div className="post-image-stub"></div>
+            )}
+          </div>
           <div>
             <Link to={`/posts/${post.id}/edit`}>Edit</Link>
             {" | "}

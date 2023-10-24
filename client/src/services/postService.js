@@ -33,16 +33,11 @@ async function fetchPost(id) {
     return response.json();
 }
 
-async function updatePost(id, post) {
+async function updatePost(id, postData) {
     const response = await fetch(`${API_URL}/${id}`, {
         method: "PUT",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            title: post.title,
-            body: post.body,
-        })
+
+        body: postData
     })
 
     if (!response.ok) {

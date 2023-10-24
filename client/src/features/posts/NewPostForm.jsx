@@ -2,6 +2,7 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom";
 import { createPost } from "../../services/postService";
 import PostForm from "./PostForm";
+import { objectToFormData } from "../../utils/formDataHelper";
 
 const NewPostForm = () => {
 
@@ -9,14 +10,10 @@ const NewPostForm = () => {
     const navigate = useNavigate();
 
     const handleCreateSubmit = async (rawData) => {
-        const formData = new FormData();
-        formData.append("post[title]", rawData.title);
-        formData.append("post[body]", rawData.body);
-        formData.append("post[image]", rawData.image);
-
         try {
-                const response = await createPost(formData);
-                navigate(`/posts/${response.id}`)
+            const formData = objectToFormData({post: rawData});
+            const response = await createPost(formData);
+            navigate(`/posts/${response.id}`)
         } catch (e) {
             setError(e)
             console.error("An error occured while creating post: ", e);

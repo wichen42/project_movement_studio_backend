@@ -27,7 +27,7 @@ function PostForm({ post, headerText, onSubmit, buttonText }) {
                         type="file"
                         accept="image/*" 
                         id="image" 
-                        onChange={(e) => setFormData({...formData, image: e.target.files[0]})}
+                        onChange={(e) => setFormData({...formData,image: e.target.files[0]})}
                     /> 
                 </div>
                 <div>

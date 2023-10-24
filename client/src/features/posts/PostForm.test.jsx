@@ -90,4 +90,27 @@ describe("PostForm component", () => {
             image: "",
         });
     });
+
+    it("handles image file upload", () => {
+        const mockSubmit = jest.fn();
+        const buttonText = "Submit";
+        const headerText = "New Post";
+    
+        const { getByLabelText } = render(
+            <PostForm
+                buttonText={buttonText}
+                headerText={headerText}
+                onSubmit={mockSubmit}
+            />
+        );
+        
+        const file = new File(["sample"], "sample.png", { type: "image/png" });
+        const imageInput = getByLabelText(/Image/i);
+    
+        fireEvent.change(imageInput, { target: { files: [file] } });
+        
+        expect(imageInput.files[0]).toBe(file)
+    });
+    
+
 });

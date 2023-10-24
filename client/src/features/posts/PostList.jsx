@@ -43,7 +43,7 @@ const PostList = () => {
             {post.image_url ? (
               <img src={post.image_url} alt={post.title} className="post-image" />
             ) : (
-              <div className="post-image-stub"></div>
+              <div className="post-image-stub" data-testid="post-image-stub"></div>
             )}
           </div>
           <div>
